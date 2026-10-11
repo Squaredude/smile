@@ -72,5 +72,5 @@ systemctl --user is-active $SERVICE_NAME --quiet
 echo "$SERVICE_NAME installed and started correctly."
 
  if ! which ydotool &> /dev/null; then
-    echo "NOTE: ydotool was not found on the system, please follow the documentation at https://sr.ht/~geb/dotool/ to install it." >&2
+    echo "NOTE: ydotool was not found on the system, please install with sudo apt install ydotool." >&2
 fi
