@@ -24,17 +24,17 @@ if pgrep -fx "/bin/bash $0" | grep -v "^$$\$" > /dev/null 2>&1; then
     exit 0
 fi
 
-# Monitor D-Bus signals and trigger dotool command
+# Monitor D-Bus signals and trigger ydotool command
 dbus-monitor --session "type='signal',interface='it.mijorus.smile',member='CopiedEmojiBroadcast',path='/it/mijorus/smile/actions'" | \
 while read -r line; do
     if echo "$line" | grep -q "member=CopiedEmojiBroadcast"; then
-        if ! which dotool &> /dev/null; then
-            echo "Error: dotool is not installed or not in PATH" >&2
+        if ! which ydotool &> /dev/null; then
+            echo "Error: ydotool is not installed or not in PATH" >&2
             continue
         fi
 
         # Trigger the dotool command
-        echo 'key ctrl+v' | dotool
+        ydotool key 29:1 47:1 47:0 29:0
     fi
 done
 EOF
@@ -71,6 +71,6 @@ systemctl --user is-active $SERVICE_NAME --quiet
 
 echo "$SERVICE_NAME installed and started correctly."
 
- if ! which dotool &> /dev/null; then
-    echo "NOTE: dotool was not found on the system, please install with sudo apt install ydotool." >&2
+ if ! which ydotool &> /dev/null; then
+    echo "NOTE: ydotool was not found on the system, please install with sudo apt install ydotool." >&2
 fi
